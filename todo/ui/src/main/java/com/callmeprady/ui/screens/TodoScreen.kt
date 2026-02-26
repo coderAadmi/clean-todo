@@ -1,5 +1,6 @@
 package com.callmeprady.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,10 +12,14 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.callmeprady.ui.viewmodel.TodoViewmodel
 
 @Composable
@@ -24,22 +29,29 @@ fun TodoScreen(
 ) {
 
     val lifecycleOwner = LocalLifecycleOwner.current
-    var screenState : TodoScreenState = TodoScreenState.Nothing
+
 
     LaunchedEffect(Unit) {
+        Log.d("TD_X", "made nw call")
         todovm.loadTodos()
-        todovm.todoScreenState
-            .observe(lifecycleOwner){
-                screenState = it
-            }
+
     }
+
+
+    val screenState by todovm.todoScreenState.collectAsStateWithLifecycle()
 
 
     Column(modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
+
+        Text("Todos")
+
+
+
         when(screenState){
+
             is TodoScreenState.Error -> {
                 Text("Error fetching todos : ${(screenState as TodoScreenState.Error).msg}")
             }
@@ -47,12 +59,12 @@ fun TodoScreen(
                 Text("Loading todos.....")
             }
             TodoScreenState.Nothing -> {
-
             }
             is TodoScreenState.Success -> {
                 val todos = (screenState as TodoScreenState.Success).todos
                 LazyColumn(modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(16.dp)) {
+                    contentPadding = PaddingValues(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)) {
 
                     items(todos){
                         Card(Modifier.fillMaxSize()) {

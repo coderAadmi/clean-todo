@@ -53,4 +53,8 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    implementation(project(":todo:ui"))
+    implementation(project(":todo:domain"))
+    implementation(project(":todo:data"))
 }
