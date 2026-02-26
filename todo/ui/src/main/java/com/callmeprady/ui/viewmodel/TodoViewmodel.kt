@@ -1,7 +1,6 @@
 package com.callmeprady.ui.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
@@ -10,13 +9,17 @@ import com.callmeprady.domain.FetchTodosUsecase
 import com.callmeprady.domain.TodoResponse
 import com.callmeprady.ui.screens.TodoScreenState
 import com.callmeprady.ui.screens.toUiModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class TodoViewmodel constructor(private val fetchTodoUsecase : FetchTodosUsecase) : ViewModel() {
+
+@HiltViewModel
+class TodoViewmodel @Inject constructor(private val fetchTodoUsecase : FetchTodosUsecase) : ViewModel() {
 
     private val _todoScreenState = MutableLiveData<TodoScreenState>(TodoScreenState.Loading) //only mutasble within viewmodel
     val todoScreenState  = _todoScreenState

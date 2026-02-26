@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -41,4 +43,7 @@ dependencies {
     api("com.squareup.retrofit2:retrofit:3.0.0")
 // For a JSON converter (e.g., Gson)
     api("com.squareup.retrofit2:converter-gson:3.0.0")
+
+    implementation("com.google.dagger:hilt-android:2.57.1")
+    ksp("com.google.dagger:hilt-android-compiler:2.57.1")
 }

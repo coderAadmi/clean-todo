@@ -1,15 +1,13 @@
 package com.callmeprady.data
 
 import android.util.Log
-import com.callmeprady.core.net.Network
 import com.callmeprady.data.api.TodoApiService
 import com.callmeprady.domain.TodoModel
 import com.callmeprady.domain.TodoRepository
 import com.callmeprady.domain.TodoResponse
-import kotlinx.coroutines.delay
-import retrofit2.create
+import jakarta.inject.Inject
 
-class TodoRepositoryImpl constructor( private val todoApiService : TodoApiService) : TodoRepository {
+class TodoRepositoryImpl @Inject constructor(private val todoApiService : TodoApiService) : TodoRepository {
 
 
     override suspend fun fetchTodos(): TodoResponse {
