@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.callmeprady.data"
+    namespace = "com.callmeprady.core"
     compileSdk {
         version = release(36)
     }
@@ -38,7 +38,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation(project(":todo:domain") )
-    implementation(project(":core") )
-
+    api("com.squareup.retrofit2:retrofit:3.0.0")
+// For a JSON converter (e.g., Gson)
+    api("com.squareup.retrofit2:converter-gson:3.0.0")
 }

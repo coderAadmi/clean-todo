@@ -1,6 +1,6 @@
 package com.callmeprady.domain
 
 interface TodoRepository{
-     fun fetchTodos () : TodoResponse
-     fun addTodo(todo : TodoModel)
+     suspend fun fetchTodos () : TodoResponse
+     suspend fun addTodo(todo : TodoModel)
  }
